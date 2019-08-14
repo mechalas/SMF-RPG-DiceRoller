@@ -57,7 +57,9 @@ the result. You can have any number of modifiers in a dice expression.
 
 Roll a single, 20-sided dice and print the result.
 
+```
 [dice]d20+10[/dice]
+```
 
 Roll a single, 20-sided dice and add 10 to the result.
 
@@ -92,15 +94,21 @@ As above, only apply a penalty of -Y to the confirmation roll.
 
 #### Examples
 
-```[dice]d20c + 4[/dice]```
+```
+[dice]d20c + 4[/dice]
+```
 
 Reroll to confirm a critical result if you roll a 20.
 
-```[dice]d20c18[/dice] + 4```
+```
+[dice]d20c18[/dice] + 4
+```
 
 Reroll to confirm a critical result if you roll an 18 or higher.
 
-```[dice]d20c18b1[/dice] + 4```
+```
+[dice]d20c18b1[/dice] + 4
+```
 
 Reroll to confirm a critical result if you roll an 18 or higher, and add a bonus 
 of +1 to the reroll.
