@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>skyschemer:RPGDiceRoller</id>
+	<name>RPG Dice Roller</name>
+	<version>1.1</version>
+	<type>modification</type>
+
+	<install for="2.0-2.0.99">
+		<database>install_2_0.php</database>
+		<modification type="file">install_2_0.xml</modification> 
+		<require-file name="rpg_dr_dice.gif" destination="$imagesdir/bbc" />
+		<require-file name="RPGDice.php" destination="$sourcedir" />
+		<require-file name="rpgdiceroller.css" destination="$themedir/css" />
+	</install>
+
+	<uninstall for="2.0-2.0.99">
+<!--		<code>uninstall_2_0.php</code> -->
+		<modification type="file" reverse="true">install_2_0.xml</modification> 
+		<remove-file name="rpg_dr_dice.gif" destination="$imagesdir/bbc" />
+		<remove-file name="RPGDice.php" destination="$sourcedir" />
+		<remove-file name="rpgdiceroller.css" destination="$themedir/css" />
+	</uninstall>
+</package-info>

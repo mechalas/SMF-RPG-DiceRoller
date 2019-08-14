@@ -1,0 +1,16 @@
+div.rpg_dice_roll {
+	font-family: Verdana, Geneva, sans-serif;
+	margin: 0.5em 1em 0.5em 1em;
+	padding: 2px 4px 2px 4px;
+	color: #63b13e;
+	border: 1px dashed black;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+span.rpg_dice_total, span.rpg_dice_label {
+	font-weight: bold;
+}
+
+span.rpg_crit_confirm {
+	color: #cd7848;
+}
