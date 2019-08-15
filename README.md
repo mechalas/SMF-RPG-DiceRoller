@@ -113,6 +113,41 @@ Reroll to confirm a critical result if you roll an 18 or higher.
 Reroll to confirm a critical result if you roll an 18 or higher, and add a bonus 
 of +1 to the reroll.
 
+## How it works
+
+The RPG Dice Roller relies on the mt_rand() and mt_srand() functions in PHP. When
+a message is started, it uses a deterministic algorithm to generate a psuedorandom
+seed. Seeds are specific to the destination forum so that a die roll in one
+forum is not impacted by die rolls in others. This also discourages (but does
+not prevent) shenanigans and casual cheating.
+
+When a message is posted, the seed is stored in the SMF database and recalled when
+the message is edited. This allows players to edit a post that contains die rolls.
+
+Cheating is still possible, of course, but it requires delioberate actions from 
+the poster. As with all cooperative games, the assumption is that people play
+fairly and don't go out of their way to cheat or do so flagrantly.
+
+### Database Modifications
+
+The mod adds a column named `rpg_dr_seed` to the `smf_messages` table to store the
+random seeds.
+
+### Uninstalling
+
+Uninstalling the plugin does not delete the `rpg_dr_seed` column, as deleting the 
+seed column would cause new seeds to be generated if/when the mod is re-installed.
+This would effectively change any existing die rolls.
+
+If you want to remove the column because you'll be permanently uninstalling the 
+mod, or you just don't care, then edit `packing-info.xml` and uncomment this line
+before uninstalling the mod:
+
+```
+<!--    <code>uninstall_2_0.php</code> -->
+
+```
+
 ## Bugs
 
 Dice roll expressions cannot start with a negative number. i.e., `-1+d6` will
