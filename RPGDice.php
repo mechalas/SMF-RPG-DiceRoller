@@ -123,7 +123,11 @@ function rpg_dice_roller_evaluate($roll_string, $critconfirm=0)
 
 	/* Are we editing a message? */
 	if ( empty($msgid) ) {
-		$msgid= $_REQUEST['msg'];
+		if ( array_key_exists('msg', $_REQUEST) ) {
+			$msgid= $_REQUEST['msg'];
+		} else {
+			$msgid= -1;
+		}
 		$RPGDR['msg_id']= $msgid;
 	}
 
@@ -261,7 +265,7 @@ function dice_eval($expr, &$rolls, &$potentialcrit, $critconfirm)
  */
 function rpg_dice_insert_seed($msgid)
 {
-	global $smcFunc, $RPGDR;
+	global $smcFunc, $RPGDR, $RPGDRSEED;
 
 	if ( is_null($msgid) || empty($msgid) ) return false;
 
