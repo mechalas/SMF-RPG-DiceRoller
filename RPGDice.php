@@ -37,27 +37,28 @@ function rpg_dice_bbc(array &$bbc)
 {
 	/*
 	 * The bbc hook can't post-process the content, so we cheat
-	 * and use validate to call create_function, which does an
-	 * eval allowing use to replace the local &$data in Subs.php.
+	 * and use validate to call an anonymous function, which allows
+	 * us to replace the local &$data in Subs.php.
 	 * 
-	 * This is a terrible hack, but without post-processing 
-	 * options on a per-post basis, the only alternative is
-	 * inserting code into Subs.php
+	 * This is a hack, but without post-processing options on a per-
+	 * post basis, the only alternative is inserting code into Subs.php
 	 */
 
 	$bbc[] = array(
 		'tag' => 'dice',
 		'type' => 'unparsed_equals_content',
 		'content' => '<div class="rpg_dice_roll"><span class="rpg_dice_label">$2: </span>$1</div>',
-		'validate' => create_function('&$tag, &$data, $disabled', '$data[0] = rpg_dice_roller_evaluate($data[0]);')
+		'validate' => function(&$tag, &$data, $disabled) { return $data[0] = rpg_dice_roller_evaluate($data[0]); } 
 	);
+		#'validate' => create_function('&$tag, &$data, $disabled', '$data[0] = rpg_dice_roller_evaluate($data[0]);')
 
 	$bbc[] = array(
 		'tag' => 'dice',
 		'type' => 'unparsed_content',
 		'content' => '<div class="rpg_dice_roll">$1</div>',
-		'validate' => create_function('&$tag, &$data, $disabled', '$data = rpg_dice_roller_evaluate($data);'),
+		'validate' => function(&$tag, &$data, $disabled) { return $data = rpg_dice_roller_evaluate($data); }
 	);
+		#'validate' => create_function('&$tag, &$data, $disabled', '$data = rpg_dice_roller_evaluate($data);'),
 }
 
 /**
