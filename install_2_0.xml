@@ -4,7 +4,7 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 	<id>skyschemer:RPGDiceRoller</id>
 	<name>RPG Dice Roller</name>
-	<version>1.1</version>
+	<version>1.1.1</version>
 
 	<file name="$sourcedir/Display.php">
 		<operation>
@@ -23,9 +23,14 @@
 	if ($message === '')
 		return '';]]></search>
 			<add><![CDATA[
-		/* RPG Dice Roller: Use $RPGDR to save the message id. */
-		global $RPGDR;
-		$RPGDR['msg_id']= $cache_id;
+	/*
+	 * RPG Dice Roller: Use $RPGDR to save the message id. However, don't
+	 * allow an empty msg_id to replace an existing message id, as this
+	 * means a nested call to parse_bbc() e.g. when using [quote=XYZ]
+	 * tags.
+	 */
+	global $RPGDR;
+	if ( ! is_null($cache_id) && $cache_id != "" ) $RPGDR['msg_id']= $cache_id;
 ]]></add>
 		</operation>
 	</file>
