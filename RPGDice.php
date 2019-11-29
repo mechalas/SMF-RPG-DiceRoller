@@ -272,8 +272,9 @@ function rpg_dice_insert_seed($msgid)
 	if ( is_null($msgid) || empty($msgid) ) return false;
 
 	/*
-	 * If this post doesn't have a dice expression in it, it didn't get a seed.
-	 * Someone may add a dice retroactively, so generate one now.
+	 * If this is a new post, its seed hasn't been stored yet.
+	 * Generate it using the deterministic algorithm and store
+	 * it in the DB.
 	 */
 
 	if ( array_key_exists($msgid, $RPGDRSEED) ) {
@@ -329,12 +330,29 @@ function rpg_dice_get_seed($msgid)
 
 function rpg_dice_gen_seed()
 {
-	global $user_info;
+	global $user_info, $context, $smcFunc;
 
 	$iparr= array();
 	$seed= 0;
 
+	/* Base our seed on the numebnr of posts the user has made in this
+	 * topic and the high octets of their IP address */
+
+	$request= $smcFunc['db_query']('', '
+		SELECT COUNT(m.rpg_dr_seed)
+		FROM {db_prefix}messages AS m
+		WHERE id_member = {int:user} AND
+		id_topic = {int:topic}',
+		array(
+			'user' => $user_info['id'],
+			'topic' => $context['current_topic']
+		)
+	);
+	list($cnt) = $smcFunc['db_fetch_row']($request);
+	$smcFunc['db_free_result']($request);
+
 	$iparr= explode(".",$user_info['ip']);
-	$seed= crc32($user_info['posts']^(($iparr[0]<<8)|($iparr[1])));
+	$seed= crc32($cnt^(($iparr[0]<<8)|($iparr[1])));
+
 	return $seed;
 }
