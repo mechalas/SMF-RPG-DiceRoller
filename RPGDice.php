@@ -6,6 +6,7 @@
  * @author John Mechalas <john.mechalas@gmail.com>
  * @copyright 2019 John Mechalas
  * @license BSD 3-Clause
+ * @version 1.1.1
  */
 
 /**
