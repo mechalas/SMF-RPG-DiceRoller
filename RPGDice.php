@@ -6,7 +6,7 @@
  * @author John Mechalas <john.mechalas@gmail.com>
  * @copyright 2019 John Mechalas
  * @license BSD 3-Clause
- * @version 1.1.1
+ * @version 1.1.2
  */
 
 /**
@@ -51,7 +51,6 @@ function rpg_dice_bbc(array &$bbc)
 		'content' => '<div class="rpg_dice_roll"><span class="rpg_dice_label">$2: </span>$1</div>',
 		'validate' => function(&$tag, &$data, $disabled) { return $data[0] = rpg_dice_roller_evaluate($data[0]); } 
 	);
-		#'validate' => create_function('&$tag, &$data, $disabled', '$data[0] = rpg_dice_roller_evaluate($data[0]);')
 
 	$bbc[] = array(
 		'tag' => 'dice',
@@ -59,7 +58,6 @@ function rpg_dice_bbc(array &$bbc)
 		'content' => '<div class="rpg_dice_roll">$1</div>',
 		'validate' => function(&$tag, &$data, $disabled) { return $data = rpg_dice_roller_evaluate($data); }
 	);
-		#'validate' => create_function('&$tag, &$data, $disabled', '$data = rpg_dice_roller_evaluate($data);'),
 }
 
 /**
