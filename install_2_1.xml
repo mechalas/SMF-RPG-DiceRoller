@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://dev.smfchat.com/xsl/modification.xsl"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>skyschemer:RPGDiceRoller</id>
+	<name>RPG Dice Roller</name>
+	<version>1.1.2</version>
+
+	<file name="$sourcedir/Display.php">
+		<operation>
+			<search position="after"><![CDATA[
+	// What are you gonna display if these are empty?!]]></search>
+			<add><![CDATA[
+	/* Add a link to our style sheet */
+	rpg_dice_css();
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/Subs.php">
+		<operation>
+			<search position="before"><![CDATA[
+	if ($message === '')
+		return '';]]></search>
+			<add><![CDATA[
+	/*
+	 * RPG Dice Roller: Use $RPGDR to save the message id. However, don't
+	 * allow an empty msg_id to replace an existing message id, as this
+	 * means a nested call to parse_bbc() e.g. when using [quote=XYZ]
+	 * tags.
+	 */
+	global $RPGDR;
+	if ( ! is_null($cache_id) && $cache_id != "" ) $RPGDR['msg_id']= $cache_id;
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/Post.php">
+		<operation>
+			<search position="before"><![CDATA[
+	loadLanguage('Post');]]></search>
+			<add><![CDATA[
+	/* RPG Dice Roller: Append our style sheet */
+	rpg_dice_css();
+]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[
+		$context['submit_label'] = $txt['save'];
+]]></search>
+			<add><![CDATA[
+		/*
+		 * RPG Dice Roller: Add the msg id to $context so we can pass it
+		 * as a parameter via Javascript when modifying and previewing
+		 * an existing post. Without this, the PHP code loses the link
+		 * between the message content and the id.
+		 */
+		if ( isset($_REQUEST['msg']) ) $context['msg'] = $_REQUEST['msg'];
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/Subs-Post.php">
+		<operation>
+			<search position="before"><![CDATA[
+	if (empty($msgOptions['id']))
+		return false;]]></search>
+			<add><![CDATA[
+		/* RPG Dice Roller: Update the newly-added message with its seed */
+		rpg_dice_insert_seed($msgOptions['id']);
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$themedir/scripts/script.js">
+		<operation>
+			<search position="after"><![CDATA[
+		sendXMLDocument(smf_prepareScriptUrl]]></search>
+			<add><![CDATA[
+					';
+		// RPG Dice Roller: Add the msg id as a parameter if it's set.
+		if (array_key_exists('msg', $context)) {
+			echo '
+					x[x.length] = \'msg=\' + parseInt(', $context['msg'], ');
+					';
+		}
+		echo '
+]]></add>
+		</operation>
+	</file>
+</modification>
+

@@ -3,10 +3,10 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>skyschemer:RPGDiceRoller</id>
 	<name>RPG Dice Roller</name>
-	<version>1.1.2</version>
+	<version>1.2.0</version>
 	<type>modification</type>
 
-	<install for="2.0-2.0.99">
+	<install for="2.0-2.0.19">
 		<database>install_2_0.php</database>
 		<modification type="file">install_2_0.xml</modification> 
 		<require-file name="rpg_dr_dice.gif" destination="$imagesdir/bbc" />
@@ -14,11 +14,26 @@
 		<require-file name="rpgdiceroller.css" destination="$themedir/css" />
 	</install>
 
-	<uninstall for="2.0-2.0.99">
-<!--		<code>uninstall_2_0.php</code> -->
+	<install for="2.1-2.1.4">
+		<database>install_2_1.php</database>
+		<modification type="file">install_2_1.xml</modification> 
+		<require-file name="rpg_dr_dice.gif" destination="$imagesdir/bbc" />
+		<require-file name="RPGDice.php" destination="$sourcedir" />
+		<require-file name="rpgdiceroller.css" destination="$themedir/css" />
+	</install>
+
+	<uninstall for="2.0-2.0.19">
 		<modification type="file" reverse="true">install_2_0.xml</modification> 
 		<remove-file name="rpg_dr_dice.gif" destination="$imagesdir/bbc" />
 		<remove-file name="RPGDice.php" destination="$sourcedir" />
 		<remove-file name="rpgdiceroller.css" destination="$themedir/css" />
 	</uninstall>
+
+	<uninstall for="2.1-2.1.4">
+		<modification type="file" reverse="true">install_2_1.xml</modification> 
+		<remove-file name="$imagesdir/bbc/rpg_dr_dice.gif" />
+		<remove-file name="$sourcedir/RPGDice.php" />
+		<remove-file name="$themedir/css/rpgdiceroller.css" />
+	</uninstall>
+
 </package-info>
