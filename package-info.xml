@@ -18,6 +18,7 @@
 		<database>install_2_1.php</database>
 		<modification type="file">install_2_1.xml</modification> 
 		<require-file name="rpg_dr_dice.gif" destination="$imagesdir/bbc" />
+		<require-file name="rpg_dr_dice.png" destination="$imagesdir/bbc" />
 		<require-file name="RPGDice.php" destination="$sourcedir" />
 		<require-file name="rpgdiceroller.css" destination="$themedir/css" />
 	</install>
@@ -32,6 +33,7 @@
 	<uninstall for="2.1-2.1.4">
 		<modification type="file" reverse="true">install_2_1.xml</modification> 
 		<remove-file name="$imagesdir/bbc/rpg_dr_dice.gif" />
+		<remove-file name="$imagesdir/bbc/rpg_dr_dice.png" />
 		<remove-file name="$sourcedir/RPGDice.php" />
 		<remove-file name="$themedir/css/rpgdiceroller.css" />
 	</uninstall>

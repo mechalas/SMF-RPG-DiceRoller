@@ -1,5 +1,13 @@
 ## Release History 
 
+### 1.2.1 - Released 2/24/2024
+
+ * Create 16x16 PNG icon for SMF 2.1.x editor buttons.
+
+### 1.2 - Released 2/20/2024
+
+ * Support for SMF 2.1.x.
+
 ### 1.1.2 - Released 12/10/2023
 
  * Replace calls to deprecated create_function with anonymous 
