@@ -6,7 +6,7 @@
  * @author John Mechalas <john.mechalas@gmail.com>
  * @copyright 2019 John Mechalas
  * @license BSD 3-Clause
- * @version 1.1.2
+ * @version 1.2.3
  */
 
 /**
@@ -99,7 +99,6 @@ function rpg_dice_css()
 function rpg_dice_roller_evaluate($roll_string, $critconfirm=0)
 {
 	global $RPGDR, $RPGDRSEED, $context;
-	global $context;
 	$parts= array();
 	$rolls= '';
 	$output= '';
@@ -107,6 +106,10 @@ function rpg_dice_roller_evaluate($roll_string, $critconfirm=0)
 	$lmsgid= -2;
 	$seed= 0;
 	$potentialcrit= 0;
+
+	/* This happens if we are being run by cron.php */
+
+	if ( ! isset($_REQUEST) ) return '';
 
 	$RPG_Dice_Roller_error_badexp= 'Bad dice expression "'.$roll_string.'"';
 
@@ -119,10 +122,17 @@ function rpg_dice_roller_evaluate($roll_string, $critconfirm=0)
 		(!array_key_exists('sub_template', $context) || 
 		$context['sub_template'] != 'modifydone' ) ) return '';
 
-	$msgid= $RPGDR['msg_id'];
+	/* If response_prefix isn't in $context then we are in a message
+	 * preview that isn't rendering to the display. */
+
+	if ( ! array_key_exists('response_prefix', $context) ) return '';
+
+	if ( array_key_exists('msg_id', $RPGDR) ) {
+		$msgid= $RPGDR['msg_id'];
+	}
 
 	/* Are we editing a message? */
-	if ( empty($msgid) ) {
+	if ( $msgid == -1 ) {
 		if ( array_key_exists('msg', $_REQUEST) ) {
 			$msgid= $_REQUEST['msg'];
 		} else {

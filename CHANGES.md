@@ -1,5 +1,17 @@
 ## Release History 
 
+### 1.2.3 - Released 6/14/2024
+
+ * Fixed an issue with message preview that caused mismatched dierolls
+   between previewed and posted messages.
+
+ * Fixed an issue that caused log errors about a missing key in the
+   $RPGDR array.
+
+### 1.2.2 - Released 5/2/2024
+
+ * Reduce spurious errors when called by cron.php
+
 ### 1.2.1 - Released 2/24/2024
 
  * Create 16x16 PNG icon for SMF 2.1.x editor buttons.

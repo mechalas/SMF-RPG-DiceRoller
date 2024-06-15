@@ -25,7 +25,7 @@ using the `[dice]` BBCode. It has the following features:
 
 ## Requirements
 
-This mod supports SMF 2.0.x and has been tested on 2.0.15.
+This mod supports SMF 2.0.x and 2.1.x
 
 ## Basic Usage
 
@@ -146,12 +146,13 @@ the mod is re-installed.  This would effectively change any existing
 die rolls.
 
 If you want to remove the column because you'll be permanently
-uninstalling the mod, or you just don't care, then edit `packing-info.xml`
-and uncomment this line before uninstalling the mod:
+uninstalling the mod, or you just don't care, then edit `packaging-info.xml`
+and uncomment these lines before uninstalling the mod:
 
 ```
-<!--    <code>uninstall_2_0.php</code> -->
+<!--    <code>uninstall_2_1.php</code> -->
 
+<!--    <code>uninstall_2_0.php</code> -->
 ```
 
 ## Bugs
