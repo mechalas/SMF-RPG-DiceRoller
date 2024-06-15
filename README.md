@@ -5,7 +5,7 @@ useful for online role-playing games, also known as play-by-post games.
 
 ## Introduction
 
-This mod adds a dice roller to an SMF 2.0.x forum that memebrs can access
+This mod adds a dice roller to an SMF 2.0.x and 2.1.x forum that memebrs can access
 using the `[dice]` BBCode. It has the following features:
 
  * Posts with dice rolls can be previewed before posting.
@@ -25,7 +25,7 @@ using the `[dice]` BBCode. It has the following features:
 
 ## Requirements
 
-This mod supports SMF 2.0.x and 2.1.x
+This mod supports SMF 2.0.x and 2.1.x has been tested on 2.0.15, 2.0.17, and 2.1.4
 
 ## Basic Usage
 
